@@ -1,0 +1,73 @@
+%\PassOptionsToPackage{demo}{graphicx}
+%\documentclass{beamer}
+
+\documentclass{article}
+%\usepackage{showframe}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{mwe,tikz}
+\usepackage[percent]{overpic}
+\usepackage{fontspec}
+\usepackage{xltxtra}
+\usepackage{inputenc}
+\usepackage{xcolor}
+\definecolor{cvgreen}{HTML}{C2E15F} % give distinctive names to colors
+\definecolor{cvgray}{HTML}{4D4D4D}
+\usetikzlibrary{positioning}
+
+%\setmainfont[Ligatures=TeX,Color=cvgray]{Helvetica Neue Light}
+\setmainfont[Ligatures=TeX,Color=cvgray]{Montserrat Light}
+\newfontfamily{\greenHelv}[Ligatures=TeX,Color=cygray]{Helvetica Neue Light}
+\newfontfamily{\greenGV}[Ligatures=TeX,Color=cygray]{GreatVibes-Regular}
+\newfontfamily{\whiteGV}[Ligatures=TeX,Color=white]{GreatVibes-Regular}
+
+\usepackage{ifpdf}
+\ifpdf
+  \pdfpageheight=11in
+  \pdfpagewidth=8.5in
+\else
+  \special{papersize=11in,8.5in}
+\fi
+
+\usepackage[a4paper,margin=0.1in,landscape,paperwidth=8.5in, paperheight=11in]{geometry}
+
+\newenvironment{namefont}{\fontfamily{GreatVibes-Regular}\selectfont}{\par}
+\DeclareTextFontCommand{\textmyfont}{\namefont}
+
+\usepackage{pgfplots}
+    \usetikzlibrary{
+        pgfplots.dateplot,
+    }
+    
+\begin{document}
+
+\centering
+%\hspace{-0.2in}
+
+\noindent
+ \begin{overpic}[scale=1.9]{bg2.pdf}
+  \centering
+  \put(18,46){This is to acknowledge that}
+    \put(17,40){\fontsize{32pt}{72pt}\greenGV #NAME# #SURNAME#}
+    \put(18,36){has completed the Typing Skills Certification Test for Computer Engineering and scored following the results :}
+    \put(18,32){Average Net Speed : #WPM# wpm}
+    \put(18,30.5){Accuracy : #ACC#\%}
+    \put(18,29){Exam date : #DATETIME#}
+    
+    \put(18,25){This certificate is issued on}
+    \put(18,23){#DATEISSUE#}
+
+    \put(17,17.5){\includegraphics{apiwat.png}}
+    \put(18,17){\noindent\rule{2.5cm}{0.4pt}}
+    \put(18,15){Apiwat Boonkong}      
+    \put(18,13){Head of Computer Engineering Program}
+    
+    \put(55,16.5){\includegraphics[width=25mm]{song2.png}}
+    \put(56,17){\noindent\rule{2.5cm}{0.4pt}}
+    \put(56,15){Songrit Kitisriworapan}      
+    \put(56,13){Examiner}
+    \put(0,-2){Template : designed by starline / Freepik}
+    
+\end{overpic}
+\end{document}
