@@ -14,6 +14,12 @@ cd /home/sk/repo/certificate
 rm -f NAME.txt
 node app.js > NAME.txt
 
+if [ -e bg2.pdf ]; then
+ rm bg2.pdf
+fi
+
+cp bg2.pdf.template bg2.pdf
+
 while IFS='' read -r line || [[ -n "$line" ]]; do
  NAME=`echo $line|awk '{print $1}'`
  SURNAME=`echo $line|awk '{print $2}'`
@@ -33,6 +39,7 @@ if [ -e out-${NAME}.tex ]; then
  rm  -f out-${NAME}.tex
 fi
 
+
 if (( $(echo "$ADJWPM > $PASS" |bc -l) )); then
  sed "s/#NAME#/$NAME/g" cert.tex.template  \
     |sed "s/#SURNAME#/${SURNAME}/g" \
@@ -42,12 +49,16 @@ if (( $(echo "$ADJWPM > $PASS" |bc -l) )); then
     |sed "s/#DATETIME#/${DATE}/g" > out-${NAME}.tex
     xelatex out-${NAME}.tex
 
+rm -f out-${NAME}.tex
+
     if [ -e /var/www/html/certs/out-${NAME}.pdf ]; then
       rm -f /var/www/html/certs/out-${NAME}.pdf
     fi
+
     mv out-${NAME}.pdf /var/www/html/certs/
 
-#    gpg --clearsign -o /var/www/html/certs/signature/out-${NAME}.gpg /var/www/html/certs/out-${NAME}.pdf
+    gpg --clearsign -o /var/www/html/certs/signature/out-${NAME}.gpg /var/www/html/certs/out-${NAME}.pdf
  fi
 done < "NAME.txt"
 
+rm bg2.pdf
